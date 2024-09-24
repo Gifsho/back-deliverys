@@ -9,15 +9,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        lowercase: true,
-        required: true,
-        unique: true
-    },
     phone: {
         type: String,
-        required: true
+        required: true,
+        unique: true // ใช้เบอร์โทรศัพท์เป็นเอกลักษณ์แทน email
     },
     password: {
         type: String,
@@ -25,23 +20,45 @@ const userSchema = new Schema({
     },
     type: {
         type: String,
-        default: 'user',  
+        enum: ['user', 'rider'],
+        default: 'user'
+    },
+    profileImage: {
+        type: String // URL สำหรับเก็บรูปโปรไฟล์
+    },
+    address: {
+        type: String,
+        required: function () { return this.type === 'user'; } // ที่อยู่ต้องมีสำหรับผู้ใช้ประเภท 'user'
+    },
+    gpsLocation: {
+        latitude: { type: Number },
+        longitude: { type: Number }
+    }, // พิกัด GPS สำหรับผู้ใช้ประเภท 'rider'
+    vehicleNumber: {
+        type: String,
+        required: function () { return this.type === 'rider'; } // ทะเบียนรถต้องมีสำหรับผู้ใช้ประเภท 'rider'
+    },
+    status: {
+        type: String,
+        enum: ['available', 'unavailable'],
+        default: 'available',
+        required: function () { return this.type === 'rider'; }
     }
-});
+}, { timestamps: true });
 
+// เข้ารหัสรหัสผ่านก่อนบันทึก
 userSchema.pre('save', async function (next) {
     try {
-        if (!this.isModified('password')) return next(); // Only hash the password if it's been modified
-        
+        if (!this.isModified('password')) return next();
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
-        
         next();
     } catch (error) {
         next(error);
     }
 });
 
+// เปรียบเทียบรหัสผ่านตอนเข้าสู่ระบบ
 userSchema.methods.comparePassword = async function (userPassword) {
     try {
         return await bcrypt.compare(userPassword, this.password);
