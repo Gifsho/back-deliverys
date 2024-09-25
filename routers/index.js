@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const userRoutes = require('./user.router');
-// const orderRoutes = require('./order.routes');
+const orderRoutes = require('./order.router');
 // const locationRoutes = require('./location.routes');
 // const searchRoutes = require('./search.routes');
 // const notificationRoutes = require('./notification.routes');
@@ -13,7 +13,7 @@ const userRoutes = require('./user.router');
 // const adminRoutes = require('./admin.routes');
 
 router.use('/api/users', userRoutes);
-// router.use('/api/orders', orderRoutes);
+router.use('/api/orders', orderRoutes);
 // router.use('/api/location', locationRoutes);
 // router.use('/api/search', searchRoutes);
 // router.use('/api/notifications', notificationRoutes);
