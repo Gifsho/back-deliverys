@@ -15,8 +15,6 @@
     node index dev
 
 > ALL API CODE FOR SYSTEM
-    const router = require('express').Router();
-const UserController = require("../controller/user.controller");
 
 // 1. User Management #เสร็จ
 router.post('/api/auth/register', UserController.register); // ลงทะเบียนผู้ใช้ใหม่ (ทั้งผู้ใช้ทั่วไปและไรเดอร์)
