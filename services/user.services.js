@@ -127,28 +127,6 @@ class UserService {
             throw new Error(`เกิดข้อผิดพลาดในการรีเซ็ตรหัสผ่าน: ${error.message}`);
         }
     }
-    static async changePassword(userId, oldPassword, newPassword) {
-        try {
-            const user = await User.findById(userId);
-            if (!user) {
-                return { success: false, message: 'User not found.' };
-            }
-
-            // ตรวจสอบรหัสผ่านเก่า
-            const isMatch = await user.comparePassword(oldPassword); 
-            if (!isMatch) {
-                return { success: false, message: 'Old password is incorrect.' };
-            }
-
-            // เปลี่ยนรหัสผ่านใหม่
-            user.password = newPassword;
-            await user.save();
-
-            return { success: true };
-        } catch (error) {
-            throw new Error('Error changing password.');
-        }
-    }
 
     
     

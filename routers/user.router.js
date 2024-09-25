@@ -14,7 +14,6 @@ router.get('/:id', UserController.getUserById); // ดึงข้อมูล�
 router.put('/:id', UserController.updateUser); // อัปเดตข้อมูลผู้ใช้
 router.delete('/:id', UserController.deleteUser); // ลบผู้ใช้
 router.post('/reset-password', UserController.resetPassword); // รีเซ็ตรหัสผ่าน
-// router.put('/change-password/:id', UserController.changePassword);// เปลี่ยนรหัสผ่าน
 
 
 
