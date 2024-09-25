@@ -12,7 +12,13 @@ const userSchema = new Schema({
     phone: {
         type: String,
         required: true,
-        unique: true // ใช้เบอร์โทรศัพท์เป็นเอกลักษณ์แทน email
+        unique: true,
+        validate: {
+            validator: function(v) {
+                return /\d{10}/.test(v);  // ปรับ regex นี้ให้ตรงกับรูปแบบเบอร์โทรศัพท์ของคุณ
+            },
+            message: props => `${props.value} ไม่ใช่เบอร์โทรศัพท์ที่ถูกต้อง!`
+        }
     },
     password: {
         type: String,

@@ -18,6 +18,11 @@ exports.register = async (req, res, next) => {
             return res.status(400).json({ status: false, message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
         }
 
+        // ตรวจสอบความถูกต้องของเบอร์โทรศัพท์
+        if (!/^\d{10}$/.test(phone)) {
+            return res.status(400).json({ status: false, message: 'เบอร์โทรศัพท์ไม่ถูกต้อง กรุณากรอกเบอร์โทรศัพท์ 10 หลัก' });
+        }
+
         // ตรวจสอบว่ารหัสผ่านและยืนยันรหัสผ่านตรงกัน
         if (password !== confpass) {
             return res.status(400).json({ status: false, message: 'รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน' });
@@ -36,14 +41,25 @@ exports.register = async (req, res, next) => {
             return res.status(400).json({ status: false, message: 'ประเภทผู้ใช้ไม่ถูกต้อง' });
         }
 
+        console.log('Attempting to register user:', { name, phone, type });
+
         // เรียกใช้ Service ในการลงทะเบียนผู้ใช้
         const successRes = await UserService.registerUser({
             name, phone, password, type, profileImage, address, gpsLocation: { latitude, longitude }, vehicleNumber
         });
 
+        console.log('User registered successfully:', successRes);
+
         res.json({ status: true, success: "ลงทะเบียนสำเร็จ", data: successRes });
     } catch (error) {
-        next(error);
+        console.error('Error in user registration:', error);
+
+        if (error.message === "หมายเลขโทรศัพท์ถูกใช้แล้ว") {
+            return res.status(400).json({ status: false, message: error.message });
+        }
+
+        // ส่งข้อผิดพลาดที่ละเอียดมากขึ้นไปยัง error handler
+        next(new Error(`Registration failed: ${error.message}`));
     }
 };
 
@@ -88,3 +104,102 @@ exports.logout = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getProfile = async (req, res) => {
+    try {
+        const userId = req.params.userId; // รับ userId จาก params
+        const user = await UserService.getUserById(userId);
+        if (!user) {
+            return res.status(404).json({ status: false, message: 'ไม่พบผู้ใช้' });
+        }
+        res.json({ status: true, data: user });
+    } catch (error) {
+        res.status(500).json({ status: false, message: 'เกิดข้อผิดพลาด', error: error.message });
+    }
+};
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const userId = req.params.userId; // รับ userId จาก params
+        const updateData = req.body;
+        const updatedUser = await UserService.updateUser(userId, updateData);
+        if (!updatedUser) {
+            return res.status(404).json({ status: false, message: 'ไม่พบผู้ใช้' });
+        }
+        res.json({ status: true, message: 'อัปเดตโปรไฟล์สำเร็จ', data: updatedUser });
+    } catch (error) {
+        res.status(500).json({ status: false, message: 'เกิดข้อผิดพลาด', error: error.message });
+    }
+};
+
+exports.uploadProfileImage = async (req, res) => {
+    try {
+        const userId = req.params.userId; // รับ userId จาก params
+        const image = req.body.image; // รับข้อมูลภาพจาก body
+        const updatedUser = await UserService.updateProfileImage(userId, image);
+        res.json({ status: true, message: 'อัปโหลดรูปภาพโปรไฟล์สำเร็จ', data: updatedUser });
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
+
+exports.getUserById = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const user = await UserService.getUserById(userId);
+        if (!user) {
+            return res.status(404).json({ status: false, message: 'ไม่พบผู้ใช้' });
+        }
+        res.json({ status: true, data: user });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.updateUser = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const updateData = req.body;
+        const updatedUser = await UserService.updateUser(userId, updateData);
+        res.json({ status: true, message: 'อัปเดตผู้ใช้สำเร็จ', data: updatedUser });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.deleteUser = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        await UserService.deleteUser(userId);
+        res.json({ status: true, message: 'ลบผู้ใช้สำเร็จ' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.resetPassword = async (req, res, next) => {
+    try {
+        const { phone, newPassword } = req.body; // ดึงข้อมูลจาก request body
+        const result = await UserService.resetPassword(phone, newPassword);
+        if (result) {
+            return res.json({ status: true, message: 'รีเซ็ตรหัสผ่านสำเร็จ' });
+        }
+        return res.status(404).json({ status: false, message: 'ไม่พบผู้ใช้ที่มีเบอร์โทรศัพท์นี้' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.changePassword = async (req, res) => {
+    const userId = req.params.id;
+    const { oldPassword, newPassword } = req.body;
+
+    try {
+        const result = await UserService.changePassword(userId, oldPassword, newPassword);
+        return res.status(result.status).json(result.message);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+
