@@ -14,7 +14,7 @@
 > 
     node index dev
 
-> ALL API CODE FOR SYSTEM
+> ALL API CODE FOR SYSTEM (อันไหนคิดว่าไม่ได้ใช้ตัดออกเลย)
 
 // 1. User Management #เสร็จ
 router.post('/api/auth/register', UserController.register); // ลงทะเบียนผู้ใช้ใหม่ (ทั้งผู้ใช้ทั่วไปและไรเดอร์)
