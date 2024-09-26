@@ -47,7 +47,7 @@ router.post('/api/rider/orders/:orderId/accept', UserController.acceptOrder); //
 router.put('/api/rider/orders/:orderId/status', UserController.updateOrderStatus); // อัพเดทสถานะของคำสั่งส่งสินค้า
 router.post('/api/rider/orders/:orderId/images', UserController.uploadDeliveryImages); // อัพโหลดรูปภาพยืนยันการรับและส่งสินค้า
 
-// 3. Location Tracking
+// 3. Location Tracking #เสร็จ F.
 router.post('/api/location/update', UserController.updateLocation); // อัพเดทตำแหน่งปัจจุบันของไรเดอร์
 router.get('/api/location/rider/:riderId', UserController.getRiderLocation); // ดึงตำแหน่งปัจจุบันของไรเดอร์
 router.get('/api/location/order/:orderId', UserController.getOrderLocation); // ดึงตำแหน่งของไรเดอร์ที่กำลังส่งสินค้าสำหรับคำสั่งนั้นๆ
