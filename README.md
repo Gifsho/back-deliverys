@@ -31,61 +31,61 @@
 
 // 2. Order Management
 >
-// Sender
-router.post('/api/orders', UserController.createOrder); // สร้างคำสั่งส่งสินค้าใหม่
-router.get('/api/orders', UserController.getOrders); // ดึงรายการคำสั่งส่งสินค้าทั้งหมดของผู้ส่ง
-router.get('/api/orders/:orderId', UserController.getOrderDetails); // ดึงรายละเอียดคำสั่งส่งสินค้า
-router.put('/api/orders/:orderId', UserController.updateOrder); // อัพเดทข้อมูลคำสั่งส่งสินค้า
-router.delete('/api/orders/:orderId', UserController.cancelOrder); // ยกเลิกคำสั่งส่งสินค้า
-router.post('/api/orders/:orderId/images', UserController.uploadOrderImages); // อัพโหลดรูปภาพสินค้า
-
-// Receiver
-router.get('/api/orders/incoming', UserController.getIncomingOrders); // ดึงรายการคำสั่งส่งสินค้าที่กำลังจะได้รับ
-router.get('/api/orders/:orderId/status', UserController.getOrderStatus); // ตรวจสอบสถานะของคำสั่งส่งสินค้า
-
-// Rider
-router.get('/api/rider/orders/available', UserController.getAvailableOrders); // ดึงรายการคำสั่งส่งสินค้าที่พร้อมให้รับ
-router.post('/api/rider/orders/:orderId/accept', UserController.acceptOrder); // รับงานส่งสินค้า
-router.put('/api/rider/orders/:orderId/status', UserController.updateOrderStatus); // อัพเดทสถานะของคำสั่งส่งสินค้า
-router.post('/api/rider/orders/:orderId/images', UserController.uploadDeliveryImages); // อัพโหลดรูปภาพยืนยันการรับและส่งสินค้า
+    // Sender
+    router.post('/api/orders', UserController.createOrder); // สร้างคำสั่งส่งสินค้าใหม่
+    router.get('/api/orders', UserController.getOrders); // ดึงรายการคำสั่งส่งสินค้าทั้งหมดของผู้ส่ง
+    router.get('/api/orders/:orderId', UserController.getOrderDetails); // ดึงรายละเอียดคำสั่งส่งสินค้า
+    router.put('/api/orders/:orderId', UserController.updateOrder); // อัพเดทข้อมูลคำสั่งส่งสินค้า
+    router.delete('/api/orders/:orderId', UserController.cancelOrder); // ยกเลิกคำสั่งส่งสินค้า
+    router.post('/api/orders/:orderId/images', UserController.uploadOrderImages); // อัพโหลดรูปภาพสินค้า
+    
+    // Receiver
+    router.get('/api/orders/incoming', UserController.getIncomingOrders); // ดึงรายการคำสั่งส่งสินค้าที่กำลังจะได้รับ
+    router.get('/api/orders/:orderId/status', UserController.getOrderStatus); // ตรวจสอบสถานะของคำสั่งส่งสินค้า
+    
+    // Rider
+    router.get('/api/rider/orders/available', UserController.getAvailableOrders); // ดึงรายการคำสั่งส่งสินค้าที่พร้อมให้รับ
+    router.post('/api/rider/orders/:orderId/accept', UserController.acceptOrder); // รับงานส่งสินค้า
+    router.put('/api/rider/orders/:orderId/status', UserController.updateOrderStatus); // อัพเดทสถานะของคำสั่งส่งสินค้า
+    router.post('/api/rider/orders/:orderId/images', UserController.uploadDeliveryImages); // อัพโหลดรูปภาพยืนยันการรับและส่งสินค้า
 
 // 3. Location Tracking #เสร็จ F.
 >
-router.post('/api/location/update', UserController.updateLocation); // อัพเดทตำแหน่งปัจจุบันของไรเดอร์
-router.get('/api/location/rider/:riderId', UserController.getRiderLocation); // ดึงตำแหน่งปัจจุบันของไรเดอร์
-router.get('/api/location/order/:orderId', UserController.getOrderLocation); // ดึงตำแหน่งของไรเดอร์ที่กำลังส่งสินค้าสำหรับคำสั่งนั้นๆ
+    router.post('/api/location/update', UserController.updateLocation); // อัพเดทตำแหน่งปัจจุบันของไรเดอร์
+    router.get('/api/location/rider/:riderId', UserController.getRiderLocation); // ดึงตำแหน่งปัจจุบันของไรเดอร์
+    router.get('/api/location/order/:orderId', UserController.getOrderLocation); // ดึงตำแหน่งของไรเดอร์ที่กำลังส่งสินค้าสำหรับคำสั่งนั้นๆ
 
 // 4. Search and Management
 >
-router.get('/api/search/users', UserController.searchUsers); // ค้นหาผู้ใช้ (สำหรับค้นหาผู้รับ)
-router.get('/api/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด (สำหรับผู้ดูแลระบบ)
+    router.get('/api/search/users', UserController.searchUsers); // ค้นหาผู้ใช้ (สำหรับค้นหาผู้รับ)
+    router.get('/api/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด (สำหรับผู้ดูแลระบบ)
 
 // 5. Notifications
 >
-router.post('/api/notifications/send', UserController.sendNotification); // ส่งการแจ้งเตือนไปยังผู้ใช้
-router.get('/api/notifications', UserController.getNotifications); // ดึงรายการแจ้งเตือนของผู้ใช้
+    router.post('/api/notifications/send', UserController.sendNotification); // ส่งการแจ้งเตือนไปยังผู้ใช้
+    router.get('/api/notifications', UserController.getNotifications); // ดึงรายการแจ้งเตือนของผู้ใช้
 
 // 6. Reports and Statistics
 >
-router.get('/api/reports/user/:userId', UserController.getUserReport); // ดึงรายงานสรุปการใช้งานของผู้ใช้
-router.get('/api/reports/rider/:riderId', UserController.getRiderReport); // ดึงรายงานสรุปการทำงานของไรเดอร์
-router.get('/api/stats/orders', UserController.getOrderStats); // ดึงสถิติเกี่ยวกับคำสั่งส่งสินค้า
+    router.get('/api/reports/user/:userId', UserController.getUserReport); // ดึงรายงานสรุปการใช้งานของผู้ใช้
+    router.get('/api/reports/rider/:riderId', UserController.getRiderReport); // ดึงรายงานสรุปการทำงานของไรเดอร์
+    router.get('/api/stats/orders', UserController.getOrderStats); // ดึงสถิติเกี่ยวกับคำสั่งส่งสินค้า
 
 // 7. Payment
 >
-router.post('/api/payments/create', UserController.createPayment); // สร้างรายการชำระเงิน
-router.get('/api/payments/:paymentId', UserController.getPaymentDetails); // ดึงข้อมูลรายการชำระเงิน
-router.post('/api/payments/:paymentId/confirm', UserController.confirmPayment); // ยืนยันการชำระเงิน
+    router.post('/api/payments/create', UserController.createPayment); // สร้างรายการชำระเงิน
+    router.get('/api/payments/:paymentId', UserController.getPaymentDetails); // ดึงข้อมูลรายการชำระเงิน
+    router.post('/api/payments/:paymentId/confirm', UserController.confirmPayment); // ยืนยันการชำระเงิน
 
 // 8. Feedback and Rating
 >
-router.post('/api/feedback', UserController.submitFeedback); // ส่งความคิดเห็นหรือให้คะแนน
-router.get('/api/feedback/rider/:riderId', UserController.getRiderFeedback); // ดึงความคิดเห็นและคะแนนของไรเดอร์
+    router.post('/api/feedback', UserController.submitFeedback); // ส่งความคิดเห็นหรือให้คะแนน
+    router.get('/api/feedback/rider/:riderId', UserController.getRiderFeedback); // ดึงความคิดเห็นและคะแนนของไรเดอร์
 
 // 9. System Management (สำหรับ Admin)
 >
-router.get('/api/admin/users', UserController.getAllUsers); // ดึงรายชื่อผู้ใช้ทั้งหมด
-router.get('/api/admin/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด
-router.put('/api/admin/users/:userId/status', UserController.updateUserStatus); // อัพเดทสถานะของผู้ใช้ (เช่น ระงับบัญชี)
-router.get('/api/admin/stats', UserController.getSystemStats); // ดึงสถิติภาพรวมของระบบ
+    router.get('/api/admin/users', UserController.getAllUsers); // ดึงรายชื่อผู้ใช้ทั้งหมด
+    router.get('/api/admin/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด
+    router.put('/api/admin/users/:userId/status', UserController.updateUserStatus); // อัพเดทสถานะของผู้ใช้ (เช่น ระงับบัญชี)
+    router.get('/api/admin/stats', UserController.getSystemStats); // ดึงสถิติภาพรวมของระบบ
 
