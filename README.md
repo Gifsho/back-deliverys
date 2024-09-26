@@ -16,7 +16,8 @@
 
 > ALL API CODE FOR SYSTEM (อันไหนคิดว่าไม่ได้ใช้ตัดออกเลย)
 
-> // 1. User Management #เสร็จ F.
+ // 1. User Management #เสร็จ F.
+ >
     router.post('/api/auth/register', UserController.register); // ลงทะเบียนผู้ใช้ใหม่ (ทั้งผู้ใช้ทั่วไปและไรเดอร์)
     router.post('/api/auth/login', UserController.login); // เข้าสู่ระบบ
     router.post('/api/auth/logout', UserController.logout); // ออกจากระบบ
