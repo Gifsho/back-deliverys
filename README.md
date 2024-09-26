@@ -71,7 +71,7 @@
     router.get('/api/reports/rider/:riderId', UserController.getRiderReport); // ดึงรายงานสรุปการทำงานของไรเดอร์
     router.get('/api/stats/orders', UserController.getOrderStats); // ดึงสถิติเกี่ยวกับคำสั่งส่งสินค้า
 
-// 7. Payment
+// 7. Payment #เสร็จ F.
 >
     router.post('/api/payments/create', UserController.createPayment); // สร้างรายการชำระเงิน
     router.get('/api/payments/:paymentId', UserController.getPaymentDetails); // ดึงข้อมูลรายการชำระเงิน
