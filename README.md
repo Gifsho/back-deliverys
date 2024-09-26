@@ -65,7 +65,7 @@
     router.post('/api/notifications/send', UserController.sendNotification); // ส่งการแจ้งเตือนไปยังผู้ใช้
     router.get('/api/notifications', UserController.getNotifications); // ดึงรายการแจ้งเตือนของผู้ใช้
 
-// 6. Reports and Statistics
+// 6. Reports and Statistics (ไม่จำเป็น)
 >
     router.get('/api/reports/user/:userId', UserController.getUserReport); // ดึงรายงานสรุปการใช้งานของผู้ใช้
     router.get('/api/reports/rider/:riderId', UserController.getRiderReport); // ดึงรายงานสรุปการทำงานของไรเดอร์
@@ -77,7 +77,7 @@
     router.get('/api/payments/:paymentId', UserController.getPaymentDetails); // ดึงข้อมูลรายการชำระเงิน
     router.post('/api/payments/:paymentId/confirm', UserController.confirmPayment); // ยืนยันการชำระเงิน
 
-// 8. Feedback and Rating
+// 8. Feedback and Rating (ไม่จำเป็น)
 >
     router.post('/api/feedback', UserController.submitFeedback); // ส่งความคิดเห็นหรือให้คะแนน
     router.get('/api/feedback/rider/:riderId', UserController.getRiderFeedback); // ดึงความคิดเห็นและคะแนนของไรเดอร์
