@@ -16,17 +16,17 @@
 
 > ALL API CODE FOR SYSTEM (อันไหนคิดว่าไม่ได้ใช้ตัดออกเลย)
 
-// 1. User Management #เสร็จ F.
-router.post('/api/auth/register', UserController.register); // ลงทะเบียนผู้ใช้ใหม่ (ทั้งผู้ใช้ทั่วไปและไรเดอร์)
-router.post('/api/auth/login', UserController.login); // เข้าสู่ระบบ
-router.post('/api/auth/logout', UserController.logout); // ออกจากระบบ
-router.get('/api/users/profile', UserController.getProfile); // ดึงข้อมูลโปรไฟล์ผู้ใช้
-router.put('/api/users/profile', UserController.updateProfile); // อัพเดทข้อมูลโปรไฟล์ผู้ใช้
-router.post('/api/users/profile/image', UserController.uploadProfileImage); // อัพโหลดรูปภาพโปรไฟล์
-router.get('/api/users/:id', UserController.getUserById); // ดึงข้อมูลผู้ใช้ตาม ID
-router.put('/api/users/:id', UserController.updateUser); // อัปเดตข้อมูลผู้ใช้
-router.delete('/api/users/:id', UserController.deleteUser); // ลบผู้ใช้
-router.post('/api/users/reset-password', UserController.resetPassword); // รีเซ็ตรหัสผ่าน
+> // 1. User Management #เสร็จ F.
+    router.post('/api/auth/register', UserController.register); // ลงทะเบียนผู้ใช้ใหม่ (ทั้งผู้ใช้ทั่วไปและไรเดอร์)
+    router.post('/api/auth/login', UserController.login); // เข้าสู่ระบบ
+    router.post('/api/auth/logout', UserController.logout); // ออกจากระบบ
+    router.get('/api/users/profile', UserController.getProfile); // ดึงข้อมูลโปรไฟล์ผู้ใช้
+    router.put('/api/users/profile', UserController.updateProfile); // อัพเดทข้อมูลโปรไฟล์ผู้ใช้
+    router.post('/api/users/profile/image', UserController.uploadProfileImage); // อัพโหลดรูปภาพโปรไฟล์
+    router.get('/api/users/:id', UserController.getUserById); // ดึงข้อมูลผู้ใช้ตาม ID
+    router.put('/api/users/:id', UserController.updateUser); // อัปเดตข้อมูลผู้ใช้
+    router.delete('/api/users/:id', UserController.deleteUser); // ลบผู้ใช้
+    router.post('/api/users/reset-password', UserController.resetPassword); // รีเซ็ตรหัสผ่าน
 
 // 2. Order Management
 // Sender
