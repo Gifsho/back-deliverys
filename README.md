@@ -60,7 +60,7 @@
     router.get('/api/search/users', UserController.searchUsers); // ค้นหาผู้ใช้ (สำหรับค้นหาผู้รับ)
     router.get('/api/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด (สำหรับผู้ดูแลระบบ)
 
-// 5. Notifications
+// 5. Notifications #เสร็จ F.
 >
     router.post('/api/notifications/send', UserController.sendNotification); // ส่งการแจ้งเตือนไปยังผู้ใช้
     router.get('/api/notifications', UserController.getNotifications); // ดึงรายการแจ้งเตือนของผู้ใช้
