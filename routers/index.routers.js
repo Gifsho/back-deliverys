@@ -4,6 +4,7 @@ const router = express.Router();
 
 const userRoutes = require('./user.router');
 const orderRoutes = require('./order.router');
+const locationRoutes = require('./Location_Tracking');
 // const locationRoutes = require('./location.routes');
 // const searchRoutes = require('./search.routes');
 // const notificationRoutes = require('./notification.routes');
@@ -14,6 +15,7 @@ const orderRoutes = require('./order.router');
 
 router.use('/api/users', userRoutes);
 router.use('/api/orders', orderRoutes);
+router.use('/api/location', locationRoutes);
 // router.use('/api/location', locationRoutes);
 // router.use('/api/search', searchRoutes);
 // router.use('/api/notifications', notificationRoutes);

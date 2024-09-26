@@ -31,6 +31,10 @@ const OrderSchema = new Schema({
     type: [String],
     default: []
 },
+gpsLocation: {
+  latitude: { type: Number },
+  longitude: { type: Number }
+},
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
