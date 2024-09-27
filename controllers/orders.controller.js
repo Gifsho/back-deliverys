@@ -58,6 +58,67 @@ class OrderController {
         res.status(400).json({ message: error.message });
     }
 }
+
+ // Receiver methods
+  static async getIncomingOrders(req, res) {
+    try {
+      const orders = await OrderService.getIncomingOrders(req.user.id);
+      res.status(200).json(orders);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async getOrderStatus(req, res) {
+    try {
+      const { orderId } = req.params;
+      const status = await OrderService.getOrderStatus(orderId);
+      res.status(200).json({ status });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  // Rider methods
+  static async getAvailableOrders(req, res) {
+    try {
+      const orders = await OrderService.getAvailableOrders();
+      res.status(200).json(orders);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async acceptOrder(req, res) {
+    try {
+      const { orderId } = req.params;
+      const updatedOrder = await OrderService.acceptOrder(orderId, req.user.id);
+      res.status(200).json(updatedOrder);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async updateOrderStatus(req, res) {
+    try {
+      const { orderId } = req.params;
+      const { status } = req.body;
+      const updatedOrder = await OrderService.updateOrderStatus(orderId, status, req.user.id);
+      res.status(200).json(updatedOrder);
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async uploadDeliveryImages(req, res) {
+    try {
+      const { orderId } = req.params;
+      const imageUrls = await OrderService.uploadDeliveryImages(orderId, req.files, req.user.id);
+      res.status(200).json({ imageUrls });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = OrderController;

@@ -13,7 +13,7 @@ const searchRoutes = require('./management.router');
 const adminRoutes = require('./admin.router');
 
 router.use('/api/users', userRoutes);
-router.use('/api/orders', orderRoutes);
+router.use('/orders', orderRoutes);
 router.use('/api/location', locationRoutes);
 router.use('/api/notifications', notificationRoutes);
 router.use('/api/payments', paymentRoutes);
