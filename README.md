@@ -29,7 +29,7 @@
     router.delete('/api/users/:id', UserController.deleteUser); // ลบผู้ใช้
     router.post('/api/users/reset-password', UserController.resetPassword); // รีเซ็ตรหัสผ่าน
 
-// 2. Order Management
+// 2. Order Management #เสร็จ
 >
     // Sender
     router.post('/api/orders', UserController.createOrder); // สร้างคำสั่งส่งสินค้าใหม่
@@ -54,8 +54,8 @@
     router.post('/api/location/update', UserController.updateLocation); // อัพเดทตำแหน่งปัจจุบันของไรเดอร์
     router.get('/api/location/rider/:riderId', UserController.getRiderLocation); // ดึงตำแหน่งปัจจุบันของไรเดอร์
     router.get('/api/location/order/:orderId', UserController.getOrderLocation); // ดึงตำแหน่งของไรเดอร์ที่กำลังส่งสินค้าสำหรับคำสั่งนั้นๆ
-
-// 4. Search and Management
+ 
+// 4. Search and Management #เสร็จ 
 >
     router.get('/api/search/users', UserController.searchUsers); // ค้นหาผู้ใช้ (สำหรับค้นหาผู้รับ)
     router.get('/api/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด (สำหรับผู้ดูแลระบบ)
@@ -82,7 +82,7 @@
     router.post('/api/feedback', UserController.submitFeedback); // ส่งความคิดเห็นหรือให้คะแนน
     router.get('/api/feedback/rider/:riderId', UserController.getRiderFeedback); // ดึงความคิดเห็นและคะแนนของไรเดอร์
 
-// 9. System Management (สำหรับ Admin)
+// 9. System Management (สำหรับ Admin) #เสร็จ 
 >
     router.get('/api/admin/users', UserController.getAllUsers); // ดึงรายชื่อผู้ใช้ทั้งหมด
     router.get('/api/admin/riders', UserController.getAllRiders); // ดึงรายชื่อไรเดอร์ทั้งหมด
