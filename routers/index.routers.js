@@ -1,4 +1,5 @@
 // File: /routers/index.js
+// index.routes.js
 const express = require('express');
 const router = express.Router();
 

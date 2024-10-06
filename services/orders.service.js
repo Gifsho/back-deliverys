@@ -1,4 +1,4 @@
-const Order = require("../model/orders.model");
+const Order = require("../model/orders.model");  
 const cloudinary = require("../config/cloudinary");
 
 class OrderService {
@@ -8,8 +8,8 @@ class OrderService {
     return order;
   }
 
-  static async getOrders(senderId) {
-    return Order.find({ sender: senderId }).sort({ createdAt: -1 });
+  static async getOrders() {
+    return await Order.find().sort({ createdAt: -1 });
   }
 
   static async getOrderDetails(orderId) {

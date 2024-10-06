@@ -1,5 +1,7 @@
+// Orderroutes.js
 const router = require('express').Router();
 const OrdersController = require("../controllers/orders.controller");
+const OrderModel = require('../model/orders.model');
 const upload = require("../util/multer");
 
 router.post('/', OrdersController.createOrder); // สร้างคำสั่งส่งสินค้าใหม่ 

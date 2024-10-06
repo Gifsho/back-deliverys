@@ -41,4 +41,5 @@ gpsLocation: {
 
 const OrderModel = db.model("Order", OrderSchema);
 
+
 module.exports = OrderModel;

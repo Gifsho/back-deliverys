@@ -5,6 +5,9 @@ class OrderController {
     try {
       const order = await OrderService.createOrder(req.body);
       res.status(201).json(order);
+      // const orderData = req.body; // รับข้อมูลจาก Client
+      // const newOrder = await OrderService.createOrder(orderData); // สร้างคำสั่งใหม่
+      // return res.status(201).json(newOrder);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
