@@ -5,9 +5,6 @@ class OrderController {
     try {
       const order = await OrderService.createOrder(req.body);
       res.status(201).json(order);
-      // const orderData = req.body; // รับข้อมูลจาก Client
-      // const newOrder = await OrderService.createOrder(orderData); // สร้างคำสั่งใหม่
-      // return res.status(201).json(newOrder);
     } catch (error) {
       res.status(400).json({ message: error.message });
     }
@@ -55,14 +52,13 @@ class OrderController {
 
   static async uploadOrderImages(req, res) {
     try {
-        const imageUrls = await OrderService.uploadOrderImages(req.params.orderId, req.files);
-        res.status(200).json({ imageUrls });
+      const imageUrls = await OrderService.uploadOrderImages(req.params.orderId, req.files);
+      res.status(200).json({ imageUrls });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+      res.status(400).json({ message: error.message });
     }
-}
+  }
 
- // Receiver methods
   static async getIncomingOrders(req, res) {
     try {
       const orders = await OrderService.getIncomingOrders(req.user.id);
@@ -82,7 +78,6 @@ class OrderController {
     }
   }
 
-  // Rider methods
   static async getAvailableOrders(req, res) {
     try {
       const orders = await OrderService.getAvailableOrders();
@@ -95,7 +90,13 @@ class OrderController {
   static async acceptOrder(req, res) {
     try {
       const { orderId } = req.params;
-      const updatedOrder = await OrderService.acceptOrder(orderId, req.user.id);
+      const { riderId } = req.body;
+
+      if (!riderId) {
+        return res.status(400).json({ message: "riderId is required" });
+      }
+
+      const updatedOrder = await OrderService.acceptOrder(orderId, riderId);
       res.status(200).json(updatedOrder);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -105,8 +106,13 @@ class OrderController {
   static async updateOrderStatus(req, res) {
     try {
       const { orderId } = req.params;
-      const { status } = req.body;
-      const updatedOrder = await OrderService.updateOrderStatus(orderId, status, req.user.id);
+      const { status, riderId } = req.body;
+
+      if (!riderId) {
+        return res.status(400).json({ message: "riderId is required" });
+      }
+
+      const updatedOrder = await OrderService.updateOrderStatus(orderId, status, riderId);
       res.status(200).json(updatedOrder);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -118,6 +124,25 @@ class OrderController {
       const { orderId } = req.params;
       const imageUrls = await OrderService.uploadDeliveryImages(orderId, req.files, req.user.id);
       res.status(200).json({ imageUrls });
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+
+  static async getActiveDelivery(req, res) {
+    try {
+      const { riderId } = req.query;
+
+      if (!riderId) {
+        return res.status(400).json({ message: 'riderId is required' });
+      }
+
+      const activeOrder = await OrderService.getActiveDelivery(riderId);
+      if (activeOrder) {
+        res.status(200).json(activeOrder);
+      } else {
+        res.status(200).json({ message: 'No active delivery' });
+      }
     } catch (error) {
       res.status(400).json({ message: error.message });
     }

@@ -31,16 +31,20 @@ const OrderSchema = new Schema({
   imageUrls: {
     type: [String],
     default: []
-},
-gpsLocation: {
-  latitude: { type: Number },
-  longitude: { type: Number }
-},
+  },
+  gpsLocation: {
+    latitude: { type: Number },
+    longitude: { type: Number }
+  },
+  rider: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // เชื่อมกับโมเดล User เพื่อเก็บข้อมูลไรเดอร์
+    default: null
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
 
 const OrderModel = db.model("Order", OrderSchema);
-
 
 module.exports = OrderModel;

@@ -1,4 +1,4 @@
-const Order = require("../model/orders.model");  
+const Order = require("../model/orders.model");
 const cloudinary = require("../config/cloudinary");
 
 class OrderService {
@@ -54,21 +54,18 @@ class OrderService {
     return imageUrls;
   }
 
-  // Receiver methods
-  static async getIncomingOrders() {
-    return Order.find({
-      recipient: userId,
-      status: { $in: ["processing", "shipping"] },
-    });
+  static async getIncomingOrders(userId) {
+    return Order.find({ receiver: userId, status: { $in: ["processing", "shipping"] } });
   }
 
   static async getOrderStatus(orderId) {
-    const order = await Order.findById(orderId).select("status");
-    if (!order) throw new Error("Order not found");
+    const order = await Order.findById(orderId);
+    if (!order) {
+      throw new Error("Order not found");
+    }
     return order.status;
   }
 
-  // Rider methods
   static async getAvailableOrders() {
     return Order.find({ status: "pending" });
   }
@@ -79,6 +76,7 @@ class OrderService {
       { rider: riderId, status: "processing" },
       { new: true }
     );
+    
     if (!order) throw new Error("Order not found");
     return order;
   }
@@ -108,6 +106,15 @@ class OrderService {
     await order.save();
 
     return imageUrls;
+  }
+
+  static async getActiveDelivery(riderId) {
+    const activeOrder = await Order.findOne({
+      rider: riderId,
+      status: { $in: ["processing", "shipping"] }
+    });
+
+    return activeOrder || null;
   }
 }
 
