@@ -11,6 +11,14 @@
     npm start
 >
 > AND
+>
+> (แสดงประวัติการแก้ไขไฟล์ที่ผ่านมา)
+    git log 
+> reset ไปก่อนหน้า
+    git reset "ID" --hard
+    
+>
+> AND
 > 
     node index dev
 
