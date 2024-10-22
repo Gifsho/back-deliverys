@@ -26,7 +26,7 @@ const userSchema = new Schema({
     },
     type: {
         type: String,
-        enum: ['user', 'rider'],
+        enum: ['user', 'rider', 'send'],
         default: 'user'
     },
     profileImage: {
