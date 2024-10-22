@@ -85,7 +85,7 @@ exports.login = async (req, res, next) => {
 
         // ตรวจสอบประเภทผู้ใช้
         const userType = user.type;
-        if (userType !== 'user' && userType !== 'rider') {
+        if (userType !== 'user' && userType !== 'rider' && userType !== 'send') {
             return res.status(403).json({ status: false, message: 'ประเภทผู้ใช้ไม่ถูกต้อง' });
         }
 
