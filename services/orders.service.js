@@ -116,6 +116,18 @@ class OrderService {
 
     return activeOrder || null;
   }
+
+  static async completeDelivery(orderId) {
+    const order = await Order.findById(orderId);
+    if (!order) throw new Error("Order not found");
+  
+    // อัพเดทสถานะเป็น delivered
+    order.status = "delivered";
+    await order.save();
+  
+    return order;
+  }
+  
 }
 
 module.exports = OrderService;

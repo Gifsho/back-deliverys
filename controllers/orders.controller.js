@@ -147,6 +147,23 @@ class OrderController {
       res.status(400).json({ message: error.message });
     }
   }
+
+  static async completeDelivery(req, res) {
+    try {
+      const { orderId } = req.params;
+  
+      const updatedOrder = await OrderService.completeDelivery(orderId); // ไม่ต้องส่ง riderId
+  
+      if (updatedOrder) {
+        res.status(200).json(updatedOrder);
+      } else {
+        res.status(404).json({ message: 'Order not found' });
+      }
+    } catch (error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+  
 }
 
 module.exports = OrderController;
