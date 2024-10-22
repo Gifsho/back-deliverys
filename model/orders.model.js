@@ -3,6 +3,11 @@ const db = require("../config/db");
 
 const { Schema } = mongoose;
 
+const LocationSchema = new Schema({
+  latitude: { type: Number, required: true },
+  longitude: { type: Number, required: true },
+});
+
 const OrderSchema = new Schema({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +21,7 @@ const OrderSchema = new Schema({
   },
   items: [
     {
-      orders: { type: Number, required: true, default: 1},
+      orders: { type: Number, required: true, default: 1 },
       name: { type: String, required: true },
       quantity: { type: Number, required: true },
       price: { type: Number, required: true },
@@ -30,16 +35,18 @@ const OrderSchema = new Schema({
   },
   imageUrls: {
     type: [String],
-    default: []
+    default: [],
   },
+  pickupLocation: LocationSchema,  // พิกัดจุดรับ
+  deliveryLocation: LocationSchema,  // พิกัดจุดส่ง
   gpsLocation: {
     latitude: { type: Number },
-    longitude: { type: Number }
+    longitude: { type: Number },
   },
   rider: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // เชื่อมกับโมเดล User เพื่อเก็บข้อมูลไรเดอร์
-    default: null
+    default: null,
   },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
