@@ -36,6 +36,10 @@ exports.register = async (req, res, next) => {
         } else if (type === 'rider') {
             if (!vehicleNumber) {
                 return res.status(400).json({ status: false, message: 'หมายเลขทะเบียนรถจำเป็นสำหรับไรเดอร์' });
+            } 
+        } else if (type === 'send') {
+            if (!address || !latitude || !longitude) {
+                return res.status(400).json({ status: false, message: 'ที่อยู่และพิกัด GPS จำเป็นสำหรับผู้ใช้' });
             }
         } else {
             return res.status(400).json({ status: false, message: 'ประเภทผู้ใช้ไม่ถูกต้อง' });
