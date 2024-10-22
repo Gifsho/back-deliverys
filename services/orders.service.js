@@ -83,9 +83,10 @@ class OrderService {
 
   static async updateOrderStatus(orderId, status, riderId) {
     const order = await Order.findOne({ _id: orderId, rider: riderId });
-    if (!order)
-      throw new Error("Order not found or not assigned to this rider");
-
+    if (!order) {
+      throw new Error("ไม่พบ Order หรือ Order ไม่ได้ถูกมอบหมายให้ rider คนนี้");
+    }
+    
     order.status = status;
     await order.save();
     return order;

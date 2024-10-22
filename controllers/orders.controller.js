@@ -107,14 +107,17 @@ class OrderController {
     try {
       const { orderId } = req.params;
       const { status, riderId } = req.body;
-
+      
+      // ตรวจสอบข้อมูลที่จำเป็น
       if (!riderId) {
-        return res.status(400).json({ message: "riderId is required" });
+        return res.status(400).json({ message: "กรุณาระบุ rider ID" });
       }
-
+  
+      // อัพเดทสถานะ order
       const updatedOrder = await OrderService.updateOrderStatus(orderId, status, riderId);
       res.status(200).json(updatedOrder);
     } catch (error) {
+      console.error('Error updating order:', error);
       res.status(400).json({ message: error.message });
     }
   }
