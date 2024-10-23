@@ -56,6 +56,29 @@ class FoodController {
     }
   }
 
+  async getFoodByName(req, res) {
+    try {
+      const { name } = req.params;
+      const foods = await foodService.getFoodByName(name);
+      if (foods.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'No food found with that name'
+        });
+      }
+      res.status(200).json({
+        success: true,
+        data: foods
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
+    }
+  }
+  
+
   async updateFood(req, res) {
     try {
       const { id } = req.params;

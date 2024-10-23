@@ -28,6 +28,15 @@ class FoodService {
     }
   }
 
+  async getFoodByName(name) {
+    try {
+      return await FoodModel.find({ name: new RegExp(name, 'i'), available: true }); // ใช้ RegExp เพื่อค้นหาชื่อที่มีความยืดหยุ่น
+    } catch (error) {
+      throw new Error(`Error fetching food by name: ${error.message}`);
+    }
+  }
+  
+
   async updateFood(id, updateData) {
     try {
       updateData.updatedAt = Date.now();
