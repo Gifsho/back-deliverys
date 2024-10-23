@@ -12,6 +12,7 @@ const searchRoutes = require('./management.router');
 // const reportRoutes = require('./report.routes');
 // const feedbackRoutes = require('./feedback.routes');
 const adminRoutes = require('./admin.router');
+const foodRoutes = require('./food.router');
 
 router.use('/api/users', userRoutes);
 router.use('/api/orders', orderRoutes);
@@ -22,5 +23,7 @@ router.use('/api/search', searchRoutes);
 // router.use('/api/reports', reportRoutes);
 // router.use('/api/feedback', feedbackRoutes);
 router.use('/api/admin', adminRoutes);
+
+router.use('/api/foods', foodRoutes);
 
 module.exports = router;
