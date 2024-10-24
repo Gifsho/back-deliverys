@@ -2,6 +2,9 @@ const router = require('express').Router();
 const OrdersController = require("../controllers/orders.controller");
 const upload = require("../util/multer");
 
+// เส้นทางสำหรับลบออร์เดอร์ทั้งหมดที่ orders == 3
+router.delete('/deleteAllOrdersWithThree', OrdersController.deleteAllOrdersWithThree);
+
 router.post('/', OrdersController.createOrder);// สร้างคำสั่งส่งสินค้าใหม่
 router.get('/', OrdersController.getOrders);// ดึงรายการคำสั่งส่งสินค้าทั้งหมดของผู้ส่ง
 router.get('/:orderId', OrdersController.getOrderDetails);// ดึงรายละเอียดคำสั่งส่งสินค้า
@@ -20,5 +23,8 @@ router.put('/rider/:orderId/status', OrdersController.updateOrderStatus);// อ�
 router.post('/rider/:orderId/images', upload.array('images'), OrdersController.uploadDeliveryImages);// อัพโหลดรูปภาพยืนยันการรับและส่งสินค้า
 router.get('/rider/active-delivery', OrdersController.getActiveDelivery);
 router.post('/rider/:orderId/complete', OrdersController.completeDelivery);
+
+
+
 
 module.exports = router;

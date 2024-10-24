@@ -66,8 +66,12 @@ class OrderService {
     return order.status;
   }
 
+
   static async getAvailableOrders() {
-    return Order.find({ status: "pending" });
+    return Order.find({
+        status: "pending",
+        "items.orders": 3  // เงื่อนไขที่เช็คว่าค่า orders ใน items ต้องเท่ากับ 3
+    });
   }
 
   static async acceptOrder(orderId, riderId) {
@@ -128,7 +132,18 @@ class OrderService {
   
     return order;
   }
+
+    // ฟังก์ชันการลบออร์เดอร์เมื่อ orders == 3
+    static async deleteAllOrdersWithThree() {
+      // ลบออร์เดอร์ทั้งหมดที่มีค่า orders == 3
+      const result = await Order.deleteMany({
+        "items.orders": 3
+      });
   
+      return {
+        message: `${result.deletedCount} orders deleted successfully where orders == 3`
+      };
+    }
 }
 
 module.exports = OrderService;
