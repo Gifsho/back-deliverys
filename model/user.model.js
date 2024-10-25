@@ -34,7 +34,9 @@ const userSchema = new Schema({
     },
     address: {
         type: String,
-        required: function () { return this.type === 'user'; } // ที่อยู่ต้องมีสำหรับผู้ใช้ประเภท 'user'
+        required: function() {
+            return this.type === 'user'; // address จำเป็นเฉพาะสำหรับ user เท่านั้น
+        }
     },
     gpsLocation: {
         latitude: { type: Number },
