@@ -18,6 +18,10 @@ const OrderSchema = new Schema({
     name: { type: String, required: true },
     address: { type: String, required: true },
     phone: { type: String, required: true },
+    location: {  // เพิ่ม GPS location สำหรับผู้รับ
+      type: LocationSchema,
+      required: true
+    }
   },
   items: [{
     orders: { type: Number, required: true, default: 1 },
