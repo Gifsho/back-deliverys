@@ -25,9 +25,17 @@ class LocationService {
 
   static async getOrderLocation(orderId) {
     const order = await Order.findById(orderId)
-      .populate('rider', 'gpsLocation')
+      .select('pickupLocation deliveryLocation')
       .lean();
-    return order?.rider?.gpsLocation;
+  
+    if (!order) {
+      return null;
+    }
+  
+    return {
+      pickupLocation: order.pickupLocation,
+      deliveryLocation: order.deliveryLocation
+    };
   }
 
   static async getOrderFullLocation(orderId) {

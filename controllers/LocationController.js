@@ -30,9 +30,11 @@ class LocationController {
     try {
       const { orderId } = req.params;
       const location = await LocationService.getOrderLocation(orderId);
+      
       if (!location) {
         return res.status(404).json({ error: 'Order location not found' });
       }
+      
       res.json(location);
     } catch (error) {
       console.error('Get order location error:', error);
